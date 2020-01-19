@@ -73,7 +73,16 @@ console.log(arr);
 arr.push('234');
 arr[0].name = "Sigizmund";
 
-
+function compareSize(){
+let sizeUkr = [40,42,44,46,48,50,52,54];
+let sizeUSA = [6,8,10,12,14,16,18,20];
+let enter = prompt ('Введите наш размер (40-54 (четные)):');
+let search = sizeUkr.indexOf(Number(enter),0);
+if (search >= 0){
+    alert(`Американский размер: ${sizeUSA[search]}`);
+} else alert('Нужный размер не найден');
+}
+compareSize();
 
 function kNb(){
         var myHod = prompt('Введите Ваш вариант: Камень, Ножницы, Бумага', "");
