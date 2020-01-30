@@ -17,18 +17,27 @@
 </head>
 <body>
 <br/>
-<div class="container" id = "main">
-    <select id="select1" onchange="cityFunc()" >
+<form>
+    <div class="container">
+        <div class="row" id = "main">
+            <div class = "form-group col-md-3">
+                <select id="select1" class="custom-select custom-select-sm" onchange="cityFunc()" >
 
-    </select>
-    <select id="select2" onchange="resultFunc()">
+                </select>
+            </div>
+            <div class = "form-group col-md-3">
+                <select id="select2" class="custom-select custom-select-sm" onchange="resultFunc()">
+                    width: 300px;
+                </select>
+            </div>
+        </div>
+        <span id = "span">
 
-    </select>
-    <br/>
-    <span id = "span">
+        </span>
+    </div>
 
-    </span>
-</div>
+</form>
+
 
 
 
