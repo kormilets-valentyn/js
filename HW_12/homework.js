@@ -13,16 +13,27 @@ let result = {};
         alert('shit happens: ' +  request.status + ', ' + request.statusText )
 }
 
+    const country2 = [];
+    for (let key in result) {
+
+        country2.push(key
+        );
+        country2.sort();
+    }
+    console.log(country2);
+
     let a = document.querySelector('#select1');
     let b = document.querySelector('#select2');
+
     const sel1 = document.createElement('option');
     sel1.textContent = "Country...";
     a.appendChild(sel1);
-    for (let key in result){
+    for (let key in country2){
         const sel2 = document.createElement('option');
-        sel2.textContent = key;
+        sel2.textContent = country2[key];
         a.appendChild(sel2);
     }
+
 
     function cityFunc() {
         b.innerHTML = '';
@@ -38,7 +49,7 @@ let result = {};
         }
 
     }
-    function resultFunc(){
+    function resultFunc() {
         console.log(b.value);
         let span = document.querySelector('#span');
         span.innerHTML = `You select country: <H2>${a.value}</H2> city: <H3>${b.value}</H3>`;
