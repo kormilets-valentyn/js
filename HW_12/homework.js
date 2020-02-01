@@ -16,8 +16,7 @@ let result = {};
     const country2 = [];
     for (let key in result) {
 
-        country2.push(key
-        );
+        country2.push(key);
         country2.sort();
     }
     console.log(country2);
