@@ -1,18 +1,36 @@
 const express = require ("express");
 const {Note} = require("./db/sequelize");
+const bodyParser = require("body-parser");
+
 const app = express();
+app.use(express.json());
+
+const urlencodedParser = bodyParser.urlencoded({extended: false});
+
+app.get("/register", urlencodedParser, function (req, res) {
+    res.sendFile(__dirname + "/html/register.html");
+});
+app.post("/register", urlencodedParser, async (req, res) => {
+    if(!req.body) return res.sendStatus(400);
+    await Note.create({
+            'text': req.body.text
+    });
+    await res.status(201);
+    await res.redirect("/notes")
+});
+
 app.get ("/", function (req, res) {
     res.send("laladffadsasdsl");
 });
 const PORT = 8001;
 
-
-app.use(express.json());
+function aaa(){
+    alert(aaa);
+}
 
 app.get("/notes", async (req, res) => {
     const notes = await Note.findAll();
-    let tr = "<table border = 1>";
-    tr += "<tr>";
+    let tr =`<table border = 1><caption><H3>Привет из 90-х</H3></caption>`;
     tr+= "<td> <H3>" + "id" + "</H3></td>";
     tr+= "<td><H3>" + "text" + "</H3></td>";
     tr+= "<td><H3>" + "create" + "</H3></td>";
@@ -25,8 +43,10 @@ app.get("/notes", async (req, res) => {
         tr += "<td>" + date.slice(0,24) + "</td>";
         let date2 = String(notes[i].updatedAt);
         tr += "<td>" + date2.slice(0,24) + "</td>";
+        tr += `<td><button onclick="document.location='/delete/${notes[i].id}'">Delete</button></td>`;
     }
     tr += "</table>";
+    tr += `<a href = http://valik.com:8001/register> Add new </a>`;
     res.status(200);
     res.send(tr)
 });
@@ -57,12 +77,21 @@ app.put("/notes/:id", async (req, res) => {
 });
 
 app.delete("/notes/:id", async (req, res) => {
+        await Note.destroy({
+            where: {
+                id : Number(req.params.id)
+            }
+        });
+        res.status(201).send();
+});
+
+app.get("/delete/:id", async (req, res) => {
     await Note.destroy({
         where: {
             id : Number(req.params.id)
         }
     });
-    res.status(201).send();
+    res.redirect("/notes")
 });
 
 app.listen(PORT, () => {
